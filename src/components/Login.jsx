@@ -38,122 +38,163 @@ const Login = ({ onLogin }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+            background: 'radial-gradient(circle at top left, #1E293B 0%, #0F172A 100%)',
             padding: '1rem',
-            fontFamily: 'Inter, sans-serif'
+            overflow: 'hidden'
         }}>
-            <div className="glass-panel" style={{
+            {/* Abstract background shapes */}
+            <div style={{ 
+                position: 'absolute', top: '-10%', left: '-10%', width: '40vw', height: '40vw', 
+                background: themeColor, opacity: '0.05', borderRadius: '50%', filter: 'blur(100px)',
+                transition: 'background 0.5s ease'
+            }} />
+            <div style={{ 
+                position: 'absolute', bottom: '-10%', right: '-10%', width: '40vw', height: '40vw', 
+                background: '#F59E0B', opacity: '0.05', borderRadius: '50%', filter: 'blur(100px)' 
+            }} />
+
+            <div className="animate-scale-in" style={{
                 width: '100%',
-                maxWidth: '420px',
-                background: 'rgba(30, 41, 59, 0.7)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '24px',
+                maxWidth: '440px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '32px',
                 overflow: 'hidden',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                boxShadow: '0 40px 80px -20px rgba(0, 0, 0, 0.6)',
+                position: 'relative',
+                zIndex: 1
             }}>
                 {/* Header */}
-                <div style={{ textAlign: 'center', padding: '2.5rem 2rem 1.5rem' }}>
+                <div style={{ textAlign: 'center', padding: '3.5rem 2.5rem 2rem' }}>
                     <div style={{
-                        width: '72px',
-                        height: '72px',
-                        background: `linear-gradient(135deg, ${themeColor} 0%, ${themeColor}dd 100%)`,
-                        borderRadius: '20px',
+                        width: '84px',
+                        height: '84px',
+                        background: `linear-gradient(135deg, ${themeColor} 0%, ${themeColor}bb 100%)`,
+                        borderRadius: '24px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        margin: '0 auto 1.5rem',
+                        margin: '0 auto 1.75rem',
                         color: 'white',
-                        boxShadow: `0 10px 25px -5px ${themeColor}66`,
-                        transform: 'rotate(-5deg)'
+                        boxShadow: `0 20px 40px -10px ${themeColor}66`,
+                        transform: 'rotate(-6deg)',
+                        transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                     }}>
-                        <span style={{ fontSize: '32px', transform: 'rotate(5deg)' }}>🚍</span>
+                        <span style={{ fontSize: '38px', transform: 'rotate(6deg)' }}>🚍</span>
                     </div>
-                    <h1 style={{ fontSize: '1.8rem', fontWeight: '800', color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>SmartBus System</h1>
-                    <p style={{ color: '#94A3B8', fontSize: '0.95rem' }}>Sign in to access your portal</p>
+                    <h1 style={{ 
+                        fontSize: '2.25rem', 
+                        fontWeight: '800', 
+                        color: 'white', 
+                        marginBottom: '0.75rem', 
+                        letterSpacing: '-0.04em',
+                        fontFamily: 'Outfit, sans-serif'
+                    }}>Smart<span style={{ color: themeColor }}>Bus</span></h1>
+                    <p style={{ color: '#94A3B8', fontSize: '1rem', fontWeight: '500' }}>Excellence in School Transport</p>
                 </div>
 
                 {/* Portal Selector Tabs */}
-                <div style={{ display: 'flex', padding: '0 2rem', marginBottom: '2rem' }}>
-                    <Tab active={activeTab === 'parent'} onClick={() => { setActiveTab('parent'); setError(''); }} color="#10B981" icon={<Users size={16} />} label="Parent" />
-                    <Tab active={activeTab === 'driver'} onClick={() => { setActiveTab('driver'); setError(''); }} color="#F59E0B" icon={<Bus size={16} />} label="Driver" />
-                    <Tab active={activeTab === 'admin'} onClick={() => { setActiveTab('admin'); setError(''); }} color="#3B82F6" icon={<Shield size={16} />} label="Admin" />
+                <div style={{ 
+                    display: 'flex', 
+                    padding: '0 2.5rem', 
+                    marginBottom: '2.5rem',
+                    gap: '0.75rem'
+                }}>
+                    <Tab active={activeTab === 'parent'} onClick={() => { setActiveTab('parent'); setError(''); }} color="#10B981" icon={<Users size={18} />} label="Parent" />
+                    <Tab active={activeTab === 'driver'} onClick={() => { setActiveTab('driver'); setError(''); }} color="#F59E0B" icon={<Bus size={18} />} label="Driver" />
+                    <Tab active={activeTab === 'admin'} onClick={() => { setActiveTab('admin'); setError(''); }} color="#3B82F6" icon={<Shield size={18} />} label="Admin" />
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', padding: '0 2rem 2.5rem' }}>
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', fontWeight: '600', color: '#94A3B8' }}>Username</label>
+                <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '0 2.5rem 3.5rem' }}>
+                    <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                        <label style={{ display: 'block', marginBottom: '0.75rem', fontSize: '0.85rem', fontWeight: '700', color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Username</label>
                         <div style={{ position: 'relative' }}>
-                            <span style={{ position: 'absolute', left: '16px', top: '14px', color: '#64748B' }}>
-                                <User size={18} />
+                            <span style={{ position: 'absolute', left: '18px', top: '16px', color: '#475569' }}>
+                                <User size={20} />
                             </span>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                placeholder={`Enter ${activeTab} username`}
+                                placeholder={`${activeTab} access ID`}
                                 style={{
                                     width: '100%',
-                                    padding: '0.85rem 1rem 0.85rem 3rem',
-                                    borderRadius: '12px',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    background: 'rgba(15, 23, 42, 0.6)',
+                                    padding: '1.1rem 1.25rem 1.1rem 3.5rem',
+                                    borderRadius: '16px',
+                                    border: '2px solid rgba(255,255,255,0.05)',
+                                    background: 'rgba(15, 23, 42, 0.4)',
                                     color: 'white',
-                                    fontSize: '0.95rem',
+                                    fontSize: '1rem',
                                     outline: 'none',
-                                    transition: 'border-color 0.2s',
-                                    boxSizing: 'border-box'
+                                    transition: 'all 0.3s ease',
+                                    boxSizing: 'border-box',
+                                    fontFamily: 'Inter, sans-serif'
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = themeColor}
-                                onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = themeColor;
+                                    e.target.style.background = 'rgba(15, 23, 42, 0.6)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = 'rgba(255,255,255,0.05)';
+                                    e.target.style.background = 'rgba(15, 23, 42, 0.4)';
+                                }}
                             />
                         </div>
                     </div>
 
-                    <div>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', fontWeight: '600', color: '#94A3B8' }}>Password</label>
+                    <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                        <label style={{ display: 'block', marginBottom: '0.75rem', fontSize: '0.85rem', fontWeight: '700', color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Security Key</label>
                         <div style={{ position: 'relative' }}>
-                            <span style={{ position: 'absolute', left: '16px', top: '14px', color: '#64748B' }}>
-                                <Lock size={18} />
+                            <span style={{ position: 'absolute', left: '18px', top: '16px', color: '#475569' }}>
+                                <Lock size={20} />
                             </span>
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter password"
+                                placeholder="••••••••"
                                 style={{
                                     width: '100%',
-                                    padding: '0.85rem 1rem 0.85rem 3rem',
-                                    borderRadius: '12px',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    background: 'rgba(15, 23, 42, 0.6)',
+                                    padding: '1.1rem 1.25rem 1.1rem 3.5rem',
+                                    borderRadius: '16px',
+                                    border: '2px solid rgba(255,255,255,0.05)',
+                                    background: 'rgba(15, 23, 42, 0.4)',
                                     color: 'white',
-                                    fontSize: '0.95rem',
+                                    fontSize: '1rem',
                                     outline: 'none',
-                                    transition: 'border-color 0.2s',
-                                    boxSizing: 'border-box'
+                                    transition: 'all 0.3s ease',
+                                    boxSizing: 'border-box',
+                                    fontFamily: 'Inter, sans-serif'
                                 }}
-                                onFocus={(e) => e.target.style.borderColor = themeColor}
-                                onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = themeColor;
+                                    e.target.style.background = 'rgba(15, 23, 42, 0.6)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = 'rgba(255,255,255,0.05)';
+                                    e.target.style.background = 'rgba(15, 23, 42, 0.4)';
+                                }}
                             />
                         </div>
                     </div>
 
                     {error && (
-                        <div style={{
-                            padding: '0.85rem',
+                        <div className="animate-scale-in" style={{
+                            padding: '1rem',
                             background: 'rgba(239, 68, 68, 0.1)',
                             border: '1px solid rgba(239, 68, 68, 0.2)',
                             color: '#FCA5A5',
-                            borderRadius: '12px',
-                            fontSize: '0.85rem',
+                            borderRadius: '16px',
+                            fontSize: '0.9rem',
                             textAlign: 'center',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '0.5rem',
-                            fontWeight: '500'
+                            gap: '0.75rem',
+                            fontWeight: '600'
                         }}>
                             <span>⚠️</span> {error}
                         </div>
@@ -161,30 +202,55 @@ const Login = ({ onLogin }) => {
 
                     <button
                         type="submit"
+                        className="animate-slide-up"
                         style={{
                             marginTop: '0.5rem',
                             width: '100%',
-                            background: themeColor,
+                            background: `linear-gradient(135deg, ${themeColor} 0%, ${themeColor}dd 100%)`,
                             color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: '700',
-                            padding: '0.9rem',
-                            borderRadius: '12px',
+                            fontSize: '1.1rem',
+                            fontWeight: '800',
+                            padding: '1.1rem',
+                            borderRadius: '16px',
                             border: 'none',
                             cursor: 'pointer',
-                            boxShadow: `0 4px 14px 0 ${themeColor}40`,
-                            transition: 'all 0.2s',
+                            boxShadow: `0 15px 30px -5px ${themeColor}66`,
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            fontFamily: 'Outfit, sans-serif',
+                            animationDelay: '0.3s'
                         }}
-                        onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
-                        onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
+                        onMouseEnter={(e) => {
+                            e.target.style.transform = 'translateY(-4px) scale(1.02)';
+                            e.target.style.boxShadow = `0 20px 40px -5px ${themeColor}88`;
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.transform = 'translateY(0) scale(1)';
+                            e.target.style.boxShadow = `0 15px 30px -5px ${themeColor}66`;
+                        }}
                     >
-                        Login to Dashboard
+                        Access Dashboard
                     </button>
 
                     {/* Demo Credentials Helper */}
-                    <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.75rem', color: '#64748B', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                        <span style={{ fontWeight: '600', color: '#94A3B8' }}>Demo Credentials:</span>
-                        <span>User: <b>{activeTab}</b> | Pass: <b>{activeTab}123</b></span>
+                    <div className="animate-fade-in" style={{ 
+                        marginTop: '0.5rem', 
+                        textAlign: 'center', 
+                        fontSize: '0.85rem', 
+                        color: '#64748B', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        gap: '0.5rem',
+                        animationDelay: '0.5s'
+                    }}>
+                        <p>Demo Credentials:</p>
+                        <div style={{ 
+                            background: 'rgba(255,255,255,0.03)', 
+                            padding: '0.5rem', 
+                            borderRadius: '10px',
+                            border: '1px solid rgba(255,255,255,0.05)'
+                        }}>
+                            <span style={{ color: themeColor, fontWeight: '700' }}>{activeTab}</span> / <span style={{ color: '#CBD5E1' }}>{activeTab}123</span>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -200,19 +266,34 @@ const Tab = ({ active, onClick, color, icon, label }) => (
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '0.4rem',
-            padding: '0.75rem 0',
+            gap: '0.6rem',
+            padding: '1rem 0',
             cursor: 'pointer',
-            borderBottom: `2px solid ${active ? color : 'transparent'}`,
+            borderRadius: '16px',
             color: active ? 'white' : '#64748B',
-            transition: 'all 0.2s',
-            background: active ? `linear-gradient(to top, ${color}15, transparent)` : 'transparent',
-            borderTopLeftRadius: '8px',
-            borderTopRightRadius: '8px',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            background: active ? `${color}15` : 'transparent',
+            border: `2px solid ${active ? `${color}30` : 'transparent'}`,
+            position: 'relative',
+            overflow: 'hidden'
         }}
     >
-        <span style={{ color: active ? color : '#64748B', transition: 'color 0.2s' }}>{icon}</span>
-        <span style={{ fontSize: '0.8rem', fontWeight: active ? '700' : '600' }}>{label}</span>
+        {active && (
+            <div style={{
+                position: 'absolute', bottom: 0, left: '25%', right: '25%', height: '3px',
+                background: color, borderRadius: '10px 10px 0 0', boxShadow: `0 0 10px ${color}`
+            }} />
+        )}
+        <span style={{ 
+            color: active ? color : '#475569', 
+            transition: 'all 0.3s ease',
+            transform: active ? 'scale(1.2)' : 'scale(1)'
+        }}>{icon}</span>
+        <span style={{ 
+            fontSize: '0.85rem', 
+            fontWeight: active ? '800' : '600',
+            fontFamily: 'Outfit, sans-serif'
+        }}>{label}</span>
     </div>
 );
 

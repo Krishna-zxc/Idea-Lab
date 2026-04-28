@@ -1,149 +1,174 @@
 import React from 'react';
-import { TrendingUp, Fuel, Clock, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Fuel, Clock, AlertTriangle, BarChart3, Activity, PieChart, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
-const StatCard = ({ icon: Icon, label, value, trend, color }) => (
-    <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+const StatCard = ({ icon: Icon, label, value, trend, color, delay }) => (
+    <div className="card-premium animate-slide-up" style={{ animationDelay: delay, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{
-                padding: '0.5rem',
-                borderRadius: '8px',
-                background: `${color}15`,
+                padding: '0.75rem',
+                borderRadius: '12px',
+                background: `${color}10`,
                 color: color
             }}>
                 <Icon size={24} />
             </div>
             {trend && (
-                <span style={{
-                    fontSize: '0.8rem',
-                    color: trend > 0 ? 'var(--success-color)' : 'var(--danger-color)',
-                    fontWeight: '600'
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '2px',
+                    fontSize: '0.85rem',
+                    color: trend > 0 ? 'var(--success)' : 'var(--danger)',
+                    fontWeight: '700',
+                    background: trend > 0 ? '#DCFCE7' : '#FEE2E2',
+                    padding: '2px 8px',
+                    borderRadius: '20px'
                 }}>
-                    {trend > 0 ? '+' : ''}{trend}%
-                </span>
+                    {trend > 0 ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                    {Math.abs(trend)}%
+                </div>
             )}
         </div>
-        <h3 style={{ fontSize: '1.75rem', margin: '0.5rem 0 0', fontWeight: 'bold' }}>{value}</h3>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>{label}</p>
+        <div>
+            <h3 style={{ fontSize: '2rem', margin: 0, fontWeight: '800', color: 'var(--primary)', letterSpacing: '-0.02em' }}>{value}</h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginTop: '4px' }}>{label}</p>
+        </div>
     </div>
 );
 
 const AnalyticsDashboard = ({ students = [] }) => {
     const pickedCount = students.filter(s => s.status === 'picked').length;
     const totalCount = students.length;
+    const progress = totalCount > 0 ? Math.round((pickedCount / totalCount) * 100) : 0;
+
     return (
         <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
             {/* Top Stats Row */}
-            <div className="responsive-grid-4">
-                <StatCard
-                    icon={TrendingUp}
-                    label="Route Efficiency"
-                    value="94%"
-                    trend={2.5}
-                    color="#10B981"
-                />
-                <StatCard
-                    icon={Fuel}
-                    label="Fuel Saved"
-                    value="128 L"
-                    trend={5.2}
-                    color="#F59E0B"
-                />
-                <StatCard
-                    icon={Clock}
-                    label="Avg. Commute Time"
-                    value="28m"
-                    trend={-1.5}
-                    color="#3B82F6"
-                />
-                <StatCard
-                    icon={AlertTriangle}
-                    label="Safety Alerts"
-                    value="2"
-                    trend={0}
-                    color="#EF4444"
-                />
+            <div className="grid-auto">
+                <StatCard icon={TrendingUp} label="Fleet Efficiency" value="94.2%" trend={2.5} color="var(--info)" delay="0s" />
+                <StatCard icon={Fuel} label="Fuel Efficiency" value="12.8 km/L" trend={5.2} color="var(--warning)" delay="0.1s" />
+                <StatCard icon={Clock} label="On-Time Rate" value="98.5%" trend={1.5} color="var(--success)" delay="0.2s" />
+                <StatCard icon={AlertTriangle} label="Incident Reports" value="0" trend={0} color="var(--danger)" delay="0.3s" />
             </div>
 
-            <div className="responsive-grid-2-1">
-                {/* Main Chart Area (Visual Mockup) */}
-                <div className="glass-panel" style={{ padding: '2rem', height: '400px', display: 'flex', flexDirection: 'column' }}>
-                    <h3 style={{ marginBottom: '1.5rem' }}>Transportation & Fuel Analytics</h3>
+            <div className="grid-auto" style={{ gridTemplateColumns: '2fr 1fr' }}>
+                {/* Main Chart Area */}
+                <div className="card-premium animate-fade-in" style={{ animationDelay: '0.4s', padding: '2.5rem', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+                        <div>
+                            <h3 style={{ fontSize: '1.5rem', margin: 0 }}>Transport Performance</h3>
+                            <p style={{ color: 'var(--text-muted)', margin: '4px 0 0', fontSize: '0.9rem' }}>Weekly operations and fuel analysis</p>
+                        </div>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button className="badge badge-info" style={{ border: 'none', cursor: 'pointer' }}>Weekly</button>
+                            <button className="badge" style={{ border: 'none', cursor: 'pointer', background: '#F1F5F9', color: '#64748B' }}>Monthly</button>
+                        </div>
+                    </div>
 
                     <div style={{
                         flex: 1,
                         display: 'flex',
                         alignItems: 'flex-end',
                         justifyContent: 'space-between',
-                        gap: '1rem',
-                        paddingBottom: '1rem',
-                        borderBottom: '1px solid #e2e8f0'
+                        gap: '1.5rem',
+                        padding: '1rem 0 2rem',
+                        borderBottom: '2px solid #F1F5F9'
                     }}>
-                        {[40, 65, 50, 80, 55, 90, 70].map((h, i) => (
+                        {[45, 65, 52, 85, 58, 92, 75].map((h, i) => (
                             <div key={i} style={{
-                                width: '100%',
+                                flex: 1,
                                 height: `${h}%`,
-                                background: i === 5 ? 'var(--primary-color)' : '#cbd5e1',
-                                borderRadius: '6px 6px 0 0',
-                                transition: 'height 0.5s ease',
+                                background: i === 5 ? 'var(--primary)' : 'var(--bg-main)',
+                                borderRadius: '12px 12px 4px 4px',
+                                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
                                 position: 'relative',
-                                cursor: 'pointer'
-                            }}>
+                                cursor: 'pointer',
+                                boxShadow: i === 5 ? '0 10px 20px -5px rgba(15, 23, 42, 0.3)' : 'none'
+                            }}
+                            onMouseEnter={(e) => e.target.style.transform = 'scaleY(1.05)'}
+                            onMouseLeave={(e) => e.target.style.transform = 'scaleY(1)'}
+                            >
                                 <div style={{
                                     position: 'absolute',
-                                    bottom: '-25px',
+                                    bottom: '-35px',
                                     width: '100%',
                                     textAlign: 'center',
-                                    fontSize: '0.8rem',
-                                    color: 'var(--text-secondary)'
-                                }}>Daily</div>
+                                    fontSize: '0.75rem',
+                                    fontWeight: '700',
+                                    color: i === 5 ? 'var(--primary)' : 'var(--text-muted)'
+                                }}>{['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</div>
+                                {i === 5 && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '-40px',
+                                        left: '50%',
+                                        transform: 'translateX(-50%)',
+                                        background: 'var(--primary)',
+                                        color: 'white',
+                                        padding: '4px 10px',
+                                        borderRadius: '8px',
+                                        fontSize: '0.75rem',
+                                        fontWeight: 'bold'
+                                    }}>{h}%</div>
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Student Monitor - Dynamic Updates */}
-                <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-                    <h3 style={{ marginBottom: '1rem' }}>Live Pickup Status</h3>
-
-                    <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <div style={{
-                            width: '100%',
-                            height: '8px',
-                            background: '#e2e8f0',
-                            borderRadius: '10px',
-                            overflow: 'hidden'
-                        }}>
-                            <div style={{
-                                width: `${totalCount > 0 ? (pickedCount / totalCount) * 100 : 0}%`,
-                                height: '100%',
-                                background: 'var(--success-color)',
-                                transition: 'width 0.5s ease'
-                            }}></div>
+                {/* Live Tracking Card */}
+                <div className="card-premium animate-fade-in" style={{ animationDelay: '0.5s', padding: '2rem', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+                        <div style={{ padding: '0.5rem', borderRadius: '10px', background: '#DCFCE7', color: 'var(--success)' }}>
+                            <Activity size={20} />
                         </div>
-                        <span style={{ fontWeight: 'bold', minWidth: '60px' }}>{pickedCount}/{totalCount}</span>
+                        <h3 style={{ fontSize: '1.25rem', margin: 0 }}>Boarding Status</h3>
                     </div>
 
-                    <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                        {students.map(student => (
+                    <div style={{ marginBottom: '2.5rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                            <span style={{ fontWeight: '700', color: 'var(--primary)' }}>Completion Progress</span>
+                            <span style={{ fontWeight: '800', color: 'var(--success)' }}>{progress}%</span>
+                        </div>
+                        <div style={{
+                            width: '100%',
+                            height: '12px',
+                            background: '#F1F5F9',
+                            borderRadius: '100px',
+                            overflow: 'hidden',
+                            border: '1px solid #E2E8F0'
+                        }}>
+                            <div style={{
+                                width: `${progress}%`,
+                                height: '100%',
+                                background: 'linear-gradient(90deg, var(--success) 0%, #34D399 100%)',
+                                transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)'
+                            }}></div>
+                        </div>
+                        <p style={{ margin: '1rem 0 0', fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+                            <b>{pickedCount}</b> of <b>{totalCount}</b> students safely on board
+                        </p>
+                    </div>
+
+                    <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.75rem', paddingRight: '0.5rem' }}>
+                        {students.map((student, idx) => (
                             <div key={student.id} style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
-                                padding: '0.75rem',
-                                background: 'var(--background-bg)',
-                                borderRadius: '8px',
-                                opacity: student.status === 'picked' ? 0.6 : 1
+                                padding: '1rem',
+                                background: '#F8FAFC',
+                                borderRadius: '12px',
+                                border: '1px solid #F1F5F9',
+                                animation: `fadeIn 0.5s ease both ${0.6 + (idx * 0.05)}s`
                             }}>
-                                <span style={{ fontWeight: '500' }}>{student.name}</span>
-                                <span style={{
-                                    fontSize: '0.75rem',
-                                    padding: '0.2rem 0.6rem',
-                                    borderRadius: '12px',
-                                    background: student.status === 'picked' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                                    color: student.status === 'picked' ? 'var(--success-color)' : 'var(--accent-color)'
-                                }}>
-                                    {student.status === 'picked' ? 'Picked' : 'Pending'}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: student.status === 'picked' ? 'var(--success)' : 'var(--warning)' }} />
+                                    <span style={{ fontWeight: '600', color: 'var(--primary)', fontSize: '0.95rem' }}>{student.name}</span>
+                                </div>
+                                <span className={`badge ${student.status === 'picked' ? 'badge-success' : 'badge-warning'}`} style={{ fontSize: '0.65rem' }}>
+                                    {student.status === 'picked' ? 'Boarded' : 'Scheduled'}
                                 </span>
                             </div>
                         ))}

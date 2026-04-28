@@ -52,13 +52,13 @@ const StudentsManagement = ({ students, setStudents, buses = [] }) => {
     <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
       {/* Header */}
-      <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'white' }}>
+      <div className="card-premium animate-slide-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'white', padding: '1.5rem 2rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--primary-color)' }}>Manage Students</h2>
-          <p style={{ color: 'var(--text-secondary)' }}>Manage student enrollments and bus assignments</p>
+          <h2 style={{ fontSize: '1.5rem', color: 'var(--primary)', margin: 0 }}>Manage Students</h2>
+          <p style={{ color: 'var(--text-muted)', margin: '4px 0 0' }}>Manage student enrollments and bus assignments</p>
         </div>
-        <button onClick={() => openModal()} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#0F172A', color: 'white', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', fontWeight: '700', cursor: 'pointer', fontSize: '0.9rem' }}>
-          <UserPlus size={18} /> Add Student
+        <button onClick={() => openModal()} className="btn-premium btn-premium-primary">
+          <UserPlus size={18} /> <span>Add Student</span>
         </button>
       </div>
 

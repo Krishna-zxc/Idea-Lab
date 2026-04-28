@@ -47,13 +47,13 @@ const BusesManagement = ({ buses, setBuses }) => {
     return (
         <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {/* Header Section */}
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'white' }}>
+            <div className="card-premium animate-slide-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'white', padding: '1.5rem 2rem' }}>
                 <div>
-                    <h2 style={{ fontSize: '1.5rem', color: 'var(--primary-color)' }}>Bus Management</h2>
-                    <p style={{ color: 'var(--text-secondary)' }}>Track and manage school bus fleet</p>
+                    <h2 style={{ fontSize: '1.5rem', color: 'var(--primary)', margin: 0 }}>Bus Management</h2>
+                    <p style={{ color: 'var(--text-muted)', margin: '4px 0 0' }}>Track and manage school bus fleet</p>
                 </div>
-                <button className="btn btn-primary" onClick={() => openModal()} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--accent-color)', color: 'var(--primary-color)' }}>
-                    <Plus size={18} /> Add New Bus
+                <button className="btn-premium btn-premium-primary" onClick={() => openModal()}>
+                    <Plus size={18} /> <span>Add New Bus</span>
                 </button>
             </div>
 

@@ -25,52 +25,69 @@ function App() {
   }
 
   const [students, setStudents] = useState(() => {
-    const saved = localStorage.getItem('global_students');
-    return saved ? JSON.parse(saved) : [
-      { id: 1, name: 'Aarav Sharma', stop: 'Shanti Nagar', status: 'pending' },
-      { id: 2, name: 'Ishaan Joshi', stop: 'Kanakia Road', status: 'pending' },
-      { id: 3, name: 'Mira Reddy', stop: 'Pleasant Park', status: 'pending' },
-      { id: 4, name: 'Advait Nair', stop: 'Maxus Mall', status: 'pending' },
-      { id: 5, name: 'Tara Iyer', stop: 'Beverly Park', status: 'pending' },
-      { id: 6, name: 'Vihaan Rao', stop: 'Green Valley', status: 'pending' },
-      { id: 7, name: 'Zara Khan', stop: 'Royal Palms', status: 'pending' },
-      { id: 8, name: 'Reyansh Shah', stop: 'Silver Oaks', status: 'pending' },
-      { id: 9, name: 'Anvi Chopra', stop: 'Diamond City', status: 'pending' },
-      { id: 10, name: 'Ayaan Bhatia', stop: 'Emerald Heights', status: 'pending' },
-      { id: 11, name: 'Myra Agarwal', stop: 'Ruby Enclave', status: 'pending' },
-      { id: 12, name: 'Vivaan Patel', stop: 'Sapphire Gardens', status: 'pending' },
-    ];
+    try {
+      const saved = localStorage.getItem('global_students');
+      const parsed = saved ? JSON.parse(saved) : null;
+      return Array.isArray(parsed) ? parsed : [
+        { id: 1, name: 'Aarav Sharma', stop: 'Shanti Nagar', status: 'pending' },
+        { id: 2, name: 'Ishaan Joshi', stop: 'Kanakia Road', status: 'pending' },
+        { id: 3, name: 'Mira Reddy', stop: 'Pleasant Park', status: 'pending' },
+        { id: 4, name: 'Advait Nair', stop: 'Maxus Mall', status: 'pending' },
+        { id: 5, name: 'Tara Iyer', stop: 'Beverly Park', status: 'pending' },
+        { id: 6, name: 'Vihaan Rao', stop: 'Green Valley', status: 'pending' },
+        { id: 7, name: 'Zara Khan', stop: 'Royal Palms', status: 'pending' },
+        { id: 8, name: 'Reyansh Shah', stop: 'Silver Oaks', status: 'pending' },
+        { id: 9, name: 'Anvi Chopra', stop: 'Diamond City', status: 'pending' },
+        { id: 10, name: 'Ayaan Bhatia', stop: 'Emerald Heights', status: 'pending' },
+        { id: 11, name: 'Myra Agarwal', stop: 'Ruby Enclave', status: 'pending' },
+        { id: 12, name: 'Vivaan Patel', stop: 'Sapphire Gardens', status: 'pending' },
+      ];
+    } catch (e) {
+      console.error("Error loading students:", e);
+      return [];
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('global_students', JSON.stringify(students));
+    localStorage.setItem('global_students', JSON.stringify(students || []));
   }, [students]);
 
   // Sync state across tabs
   useEffect(() => {
     const handleStorageChange = (e) => {
-      if (e.key === 'global_students') {
-        setStudents(JSON.parse(e.newValue));
+      try {
+        if (e.key === 'global_students' && e.newValue) {
+          const parsed = JSON.parse(e.newValue);
+          if (Array.isArray(parsed)) setStudents(parsed);
+        }
+        if (e.key === 'global_buses' && e.newValue) {
+          const parsed = JSON.parse(e.newValue);
+          if (Array.isArray(parsed)) setBuses(parsed);
+        }
+      } catch (err) {
+        console.error("Storage sync error:", err);
       }
-      if (e.key === 'global_buses') {
-        setBuses(JSON.parse(e.newValue));
-      }
-
     };
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const [buses, setBuses] = useState(() => {
-    const saved = localStorage.getItem('global_buses');
-    return saved ? JSON.parse(saved) : [
-      { id: 1, name: 'SB1', driver: 'Rajesh Kumar', contact: '+91 98765 43210', status: 'Active' },
-      { id: 2, name: 'SB2', driver: 'Suresh Patil', contact: '+91 98765 00000', status: 'Active' },
-    ];
+    try {
+      const saved = localStorage.getItem('global_buses');
+      const parsed = saved ? JSON.parse(saved) : null;
+      return Array.isArray(parsed) ? parsed : [
+        { id: 1, name: 'SB1', driver: 'Rajesh Kumar', contact: '+91 98765 43210', status: 'Active' },
+        { id: 2, name: 'SB2', driver: 'Suresh Patil', contact: '+91 98765 00000', status: 'Active' },
+      ];
+    } catch (e) {
+      console.error("Error loading buses:", e);
+      return [];
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('global_buses', JSON.stringify(buses));
+    localStorage.setItem('global_buses', JSON.stringify(buses || []));
   }, [buses]);
 
 
