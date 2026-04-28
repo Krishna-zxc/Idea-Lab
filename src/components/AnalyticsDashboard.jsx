@@ -34,7 +34,7 @@ const AnalyticsDashboard = ({ students = [] }) => {
         <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
             {/* Top Stats Row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
+            <div className="responsive-grid-4">
                 <StatCard
                     icon={TrendingUp}
                     label="Route Efficiency"
@@ -65,7 +65,7 @@ const AnalyticsDashboard = ({ students = [] }) => {
                 />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem' }}>
+            <div className="responsive-grid-2-1">
                 {/* Main Chart Area (Visual Mockup) */}
                 <div className="glass-panel" style={{ padding: '2rem', height: '400px', display: 'flex', flexDirection: 'column' }}>
                     <h3 style={{ marginBottom: '1.5rem' }}>Transportation & Fuel Analytics</h3>

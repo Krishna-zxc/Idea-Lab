@@ -1,14 +1,22 @@
 :root {
   /* Premium Color Palette */
-  --primary-color: #0F172A; /* Deep Navy - Trust & Authority */
-  --accent-color: #F59E0B; /* School Bus Yellow - Alert & Focus */
-  --success-color: #10B981; /* Emerald - Safe/On Time */
-  --danger-color: #EF4444; /* Red - Delay/Danger */
-  --background-bg: #F8FAFC; /* Slate 50 - Background */
-  --card-bg: #FFFFFF; /* White */
-  --text-primary: #1E293B; /* Slate 800 */
-  --text-secondary: #64748B; /* Slate 500 */
-  
+  --primary-color: #0F172A;
+  /* Deep Navy - Trust & Authority */
+  --accent-color: #F59E0B;
+  /* School Bus Yellow - Alert & Focus */
+  --success-color: #10B981;
+  /* Emerald - Safe/On Time */
+  --danger-color: #EF4444;
+  /* Red - Delay/Danger */
+  --background-bg: #F8FAFC;
+  /* Slate 50 - Background */
+  --card-bg: #FFFFFF;
+  /* White */
+  --text-primary: #1E293B;
+  /* Slate 800 */
+  --text-secondary: #64748B;
+  /* Slate 500 */
+
   /* Glassmorphism */
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.3);
@@ -67,4 +75,94 @@ body {
 .btn-primary:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+/* ========== MOBILE RESPONSIVE STYLES ========== */
+
+/* Responsive Grid Utilities */
+.responsive-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.responsive-grid-2-1 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Tablet Breakpoint */
+@media (max-width: 1024px) {
+  .responsive-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .responsive-grid-2-1 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Breakpoint */
+@media (max-width: 768px) {
+  :root {
+    --p-md: 1rem;
+  }
+
+  .responsive-grid-4,
+  .responsive-grid-2,
+  .responsive-grid-2-1 {
+    grid-template-columns: 1fr;
+  }
+
+  .glass-panel {
+    border-radius: var(--radius-md);
+  }
+
+  .btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Hide elements on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Show elements only on mobile */
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* Small Mobile Breakpoint */
+@media (max-width: 480px) {
+  :root {
+    --radius-lg: 12px;
+    --radius-md: 6px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Mobile Table Styles */
+@media (max-width: 768px) {
+  .admin-table-header {
+    display: none !important;
+  }
+
+  .admin-table-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem;
+    padding: 1rem !important;
+  }
 }
